@@ -5,7 +5,6 @@ from __future__ import unicode_literals, absolute_import
 from itertools import chain
 
 from django.contrib.contenttypes.models import ContentType
-from django.db.models.fields import FieldDoesNotExist
 
 
 def _get_field_by_name(model_class, field_name):
@@ -83,7 +82,7 @@ def get_model_from_path_string(root_model, path):
         if path_section:
             try:
                 field, model, direct, m2m = _get_field_by_name(root_model, path_section)
-            except FieldDoesNotExist:
+            except root_model.FieldDoesNotExist:
                 return root_model
             if direct:
                 if _get_remote_field(field):
